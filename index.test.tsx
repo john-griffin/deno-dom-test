@@ -18,7 +18,7 @@ window.expect = localExpect;
 addMatchers(extensions);
 
 // Setup JSDOM
-import jsdom from "https://esm.sh/jsdom@19.0.0?no-check&pin=v64";
+import jsdom from "https://esm.sh/jsdom@20.0.3";
 const { JSDOM } = jsdom;
 const doc = new JSDOM("");
 window.document = doc.window.document;
