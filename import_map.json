@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "https://deno.land/std@0.165.0/node/vm.ts": "./lib/std/node/vm.ts"
+  }
+}
