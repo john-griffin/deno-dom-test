@@ -5,7 +5,8 @@ is component testing. It is not possible to use standard tooling from the
 broader JS ecosystem without work arounds that effect the developer experience.
 
 This repo shows how to work around these limitations today and integrate modern
-test tooling into Deno. These tools and work arounds are:
+test tooling into Deno. Most of the action can be found in 
+[this test](index.test.tsx). The tools and work arounds used are:
 
 ### @testing-library/react
 
