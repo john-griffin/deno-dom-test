@@ -27,7 +27,7 @@ window.HTMLIFrameElement = doc.window.HTMLIFrameElement;
 describe("index", () => {
   it("exists", () => {
     const { getByText } = render(<Index />);
-    // @ts-ignore: just cause
+    // @ts-ignore: unable to inject types
     expect(getByText("Home")).toBeVisible();
   });
 });
