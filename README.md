@@ -6,20 +6,20 @@ broader JS ecosystem without work arounds that effect the developer experience.
 
 This repo shows how to work around these limitations today and integrate modern
 test tooling into Deno. Most of the action can be found in 
-[this test](index.test.tsx). The tools and work arounds used are:
+[this test](index.test.tsx) and [this module](test_globals.ts). The tools and 
+work arounds used are:
 
 ### @testing-library/react
 
-The `render` function is available to use from 
-[@testing-library/react](https://github.com/testing-library/react-testing-library) 
-but the `screen` function does not work due to a lack of global document in 
-Deno. Trying to use `screen` results in the error:
+I was able to get around the following error:
 
 ```
 error: TypeError: For queries bound to document.body a global document has to be available... Learn more: https://testing-library.com/s/screen-global-error
 ```
 
-To work around this I am using the `getByText` function returned by `render`.
+By importing JSDOM and setting up the document global in an 
+[external module](test_globals.ts). This must be done due to instantiation 
+order.
 
 ### JSDOM
 
@@ -56,8 +56,6 @@ deno test --allow-env
 from jest-dom
 - Tests must be run with `--allow-env` flag
 - `isContext` override will have nasty side effects
-- Not having `screen` available from `@testing-library/react` means testing will
-be cumbersome
 
 
 ## References
@@ -65,3 +63,4 @@ be cumbersome
 - https://github.com/denoland/deno_std/issues/2667
 - https://gist.github.com/kt3k/f1975da5533bd567c1b363ccaec2cf69
 - https://github.com/testing-library/react-testing-library/issues/669
+- https://github.com/denoland/deno/discussions/13717#discussioncomment-2210033
