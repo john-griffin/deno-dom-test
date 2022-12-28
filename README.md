@@ -39,7 +39,8 @@ environment. This has been overriden using an import map to always return false.
 
 The jest-dom matchers can be made to work with the [expect](https://deno.land/x/expect)
 package by injecting them with the `addMatchers` function. To make `expect` 
-function globally accessible it is added to the `Window`.
+function globally accessible it is added to the `Window`. The expect package 
+also needs to be augmented with the jest-dom matcher types.
 
 ## Running the tests
 
@@ -52,8 +53,6 @@ deno test --allow-env
 ## Current limitations
 
 - When tests fail output is not very useful
-- Need to do a `// @ts-ignore` before the expect statement due to lack of types 
-from jest-dom
 - Tests must be run with `--allow-env` flag
 - `isContext` override will have nasty side effects
 

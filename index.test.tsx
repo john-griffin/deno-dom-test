@@ -10,7 +10,6 @@ import Index from "./index.tsx";
 describe("index", () => {
   it("exists", () => {
     render(<Index />);
-    // @ts-ignore: unable to inject types
     expect(screen.getByText("Home")).toBeVisible();
   });
 });
