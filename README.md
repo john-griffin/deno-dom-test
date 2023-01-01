@@ -63,3 +63,4 @@ deno test --allow-env
 - https://gist.github.com/kt3k/f1975da5533bd567c1b363ccaec2cf69
 - https://github.com/testing-library/react-testing-library/issues/669
 - https://github.com/denoland/deno/discussions/13717#discussioncomment-2210033
+- https://github.com/testing-library/jest-dom/issues/426#issuecomment-1063315549
