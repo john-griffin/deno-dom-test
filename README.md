@@ -55,6 +55,8 @@ deno test --allow-env
 - When tests fail output is not very useful
 - Tests must be run with `--allow-env` flag
 - `isContext` override will have nasty side effects
+- `isContext` override only works with version of `std` defined in import map,
+must be kept up to date
 
 
 ## References
