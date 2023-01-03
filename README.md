@@ -1,4 +1,4 @@
-# Deno + Testing Library React + JSDOM + jest-dom
+# Deno + Testing Library React + LinkeDOM + jest-dom
 
 One of the main limitations to building a fullstack Deno web app today (2022-12) 
 is component testing. It is not possible to use standard tooling from the 
@@ -17,23 +17,22 @@ I was able to get around the following error:
 error: TypeError: For queries bound to document.body a global document has to be available... Learn more: https://testing-library.com/s/screen-global-error
 ```
 
-By importing JSDOM and setting up the document global in an 
+By importing LinkeDOM and setting up the document global in an 
 [external module](test_globals.ts). This must be done due to instantiation 
 order.
 
-### JSDOM
+### LinkeDOM
 
-The Deno docs suggest 3 different DOM parsers. I was unable to get either 
-[LinkeDOM](https://github.com/WebReflection/linkedom) or 
-[deno-dom](https://github.com/b-fuze/deno-dom) to work. 
-However [JSDOM](https://github.com/jsdom/jsdom) is working with some hacks. The 
-configuration file must be setup as listed 
+I was able to get 
+[LinkeDOM](https://github.com/WebReflection/linkedom) working. with some hacks. 
+The configuration file must be setup as listed 
 [here](https://deno.land/manual@v1.29.1/advanced/jsx_dom/jsdom#setting-up-a-configuration-file)
 and the globals `window.document` and `window.HTMLIFrameElement` must be set to
-values from JSDOM.
+values from LinkeDOM.
 
-JSDOM also relies on the `isContext` function which is not available in the Deno 
-environment. This has been overriden using an import map to always return false.
+jest-dom matchers need `getComputedStyle` and `getRootNode` available so they 
+are manually injected based on 
+[this](https://github.com/mikemadest/jest-environment-linkedom).
 
 ### jest-dom
 
@@ -54,9 +53,6 @@ deno test --allow-env
 
 - When tests fail output is not very useful
 - Tests must be run with `--allow-env` flag
-- `isContext` override will have nasty side effects
-- `isContext` override only works with version of `std` defined in import map,
-must be kept up to date
 
 
 ## References

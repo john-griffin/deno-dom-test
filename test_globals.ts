@@ -1,9 +1,42 @@
-// Setup JSDOM
-import jsdom from "https://esm.sh/jsdom@20.0.3";
-const { JSDOM } = jsdom;
-const doc = new JSDOM("");
-globalThis.document = doc.window.document;
-globalThis.HTMLIFrameElement = doc.window.HTMLIFrameElement;
+// Setup DOM
+import { parseHTML } from "https://esm.sh/linkedom@0.14.21";
+const win = parseHTML("<div></div>");
+globalThis.document = win.document;
+globalThis.HTMLIFrameElement = win.HTMLIFrameElement;
+
+Object.defineProperty(win.Node.prototype, "getRootNode", {
+  value: function () {
+    let root = this;
+    while (root.parentNode) root = root.parentNode;
+    return root;
+  },
+});
+
+// @ts-ignore getComputedStyle
+function getComputedStyle(element) {
+  const el = element;
+
+  // @ts-ignore getPropertyValue
+  const getPropertyValue = function (prop) {
+    const regExp = /(\-([a-z]){1})/g;
+    let updatedProp = prop === "float" ? "styleFloat" : prop;
+
+    if (regExp.test(updatedProp)) {
+      // @ts-ignore updatedProp
+      updatedProp = updatedProp.replace(regExp, function (match, ...parts) {
+        return parts[1].toUpperCase();
+      });
+    }
+    return element?.currentStyle?.[updatedProp]
+      ? element.currentStyle[updatedProp]
+      : null;
+  };
+  return { el, getPropertyValue };
+}
+
+Object.defineProperty(win, "getComputedStyle", {
+  value: getComputedStyle,
+});
 
 // Setup expect with jest-dom matchers
 
