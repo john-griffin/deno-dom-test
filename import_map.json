@@ -1,5 +1,10 @@
 {
   "imports": {
-    "https://deno.land/std@0.170.0/node/vm.ts": "./lib/std/node/vm.ts"
+    "jsdom": "https://esm.sh/v102/jsdom@20.0.3"
+  },
+  "scopes": {
+    "https://esm.sh/v102/jsdom@20.0.3/": {
+      "https://deno.land/std@0.170.0/node/vm.ts": "./lib/std/node/vm.ts"
+    }
   }
 }

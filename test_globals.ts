@@ -1,6 +1,5 @@
 // Setup JSDOM
-import jsdom from "https://esm.sh/jsdom@20.0.3";
-const { JSDOM } = jsdom;
+import { JSDOM } from "jsdom";
 const doc = new JSDOM("");
 globalThis.document = doc.window.document;
 globalThis.HTMLIFrameElement = doc.window.HTMLIFrameElement;
